@@ -1,0 +1,77 @@
+!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>QUnit Date</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.11.1.css">
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="https://code.jquery.com/qunit/qunit-2.11.1.js"></script>
+    <script src="oblig1.js"></script>
+    
+    <script>
+
+    QUnit.test("gyldig dato", function (assert) {
+        const isValid = myFunction('03.02.2020');
+        assert.equal(isValid, true);
+    });
+
+    QUnit.test("date length != 10", function (assert) {
+        const isValid = myFunction('010.010.202020');
+        assert.equal(isValid, false);
+    });
+
+    QUnit.test("wrong dot", function (assert) {
+        const isValid = myFunction('0.1012.020');
+        assert.equal(isValid, false);
+    });
+
+    QUnit.test("year != 4 siffer", function (assert) {
+        const isValid = myFunction('01.01.220');
+        assert.equal(isValid, false);
+    });
+
+    QUnit.test("month != 2 siffer", function (assert) {
+        const isValid = myFunction('01.1.2020');
+        assert.equal(isValid, false);
+    });
+
+    QUnit.test("month != 1-12", function (assert) {
+        const isValid = myFunction('01.13.2020');
+        assert.equal(isValid, false);
+    });
+
+    QUnit.test("day > 31", function (assert) {
+        const isValid = myFunction('34.01.2020');
+        assert.equal(isValid, false);
+    });
+
+    QUnit.test("day 31 for month != 31", function (assert) {
+        const isValid = myFunction('31.04.2020');
+        assert.equal(isValid, false);
+    });
+
+    QUnit.test("day 30 in february", function (assert) {
+        const isValid = myFunction('30.02.2020');
+        assert.equal(isValid, false);
+    });
+
+    QUnit.test("29.2 != skuddår", function (assert) {
+        const isValid = myFunction('29.02.2019');
+        assert.equal(isValid, false);
+    });
+
+    QUnit.test("29.2 ok når skuddår", function (assert) {
+        const isValid = myFunction('29.02.2020');
+        assert.equal(isValid, true);
+    });
+
+
+
+    </script>
+    
+</body>
+</html>
